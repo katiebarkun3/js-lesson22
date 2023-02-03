@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+
+        function test1() {
+            console.log(this);
+            let test = function() {
+                console.log(this);
+            }
+            test();
+        }
+
+        test1();
+
+        let test2 = {
+            name: 'Alex',
+            t1: function(){
+                console.log(this);
+
+                function innerTest() {
+                    console.log(this);
+                    console.log(this.name);
+                }
+                innerTest();
+            }
+        }
+
+        /* test2.t1(); */
+
+
+        let test3 = {
+            a: 10,
+            b: 25,
+            t1: function(){
+                console.log(this.a + this.b);
+                console.log(this);
+            }
+        }
+
+        /* test3.t1(); */
+        /* setTimeout (test3.t1(), 1000); */
+
+
+
+        // call(), apply()
+        let test4 = {
+            name: 'Alex',
+            t1: function(){
+                console.log(this);
+                function innerTest(a, b) {
+                    console.log(this);
+                    console.log(a, b);
+                }
+                innerTest.call(this, 15, 12);
+                innerTest.apply(this, [51, 34]);
+            }
+        };
+
+      /*   test4.t(); */
+
+
+
+
+        // bind()
+        let test5 = {
+
+            t1: function(){
+                console.log(this);
+                function innerTest() {
+                    console.log(this);
+                }
+                let context = innerTest.bind(this);
+
+                context();
+                context();
+                context();
+
+            }
+        };
+
+        /* test5.t1(); */
+
+        function ShowNumber(number){
+            this.number = number;
+            this.timer = setInterval(show.bind(this), 1000);
+
+            function show() { //this.func = bez etogo ne rabotayet bez bind()
+                console.log(--this.number);
+                if(this.number == 0)clearInterval(this.timer);
+            }
+        }
+
+        /* let show1 = new ShowNumber(10); */
+
+        
+        // (() => log123 ) samovyzyvaetsya
+
+
+        //strelochnaya
+        function ShowNumber1(number){
+            this.number = number;
+            this.timer = setInterval(
+                () => {
+                    console.log(--this.number);
+                    if(this.number == 0)clearInterval(this.timer);
+                },
+                1000);
+                console.log(this);
+            }
+
+            function funk() { //this.func = bez etogo ne rabotayet bez bind()
+                console.log(this);
+                funk();
+        }
+
+
+
+
+
+        let obj = new ShowNumber1(11);
+
+
+
+
+
+        let person = {
+            name: 'Vlad',
+            age: 25,
+            logInfo: function(job, phone){
+                console.log(`Name is ${this.name}`);
+                console.log(`Age is ${this.age}`);
+                console.log(`Job is ${job}`);
+                console.log(`Phone is ${phone}`);
+            }
+        }
+
+        person.logInfo('investor', '+85848303');
+
+        person2 = {
+            name: 'Vova',
+            age: 31,
+        }
+
+        person.logInfo.call(person2, 'it', '+5759494984');
+
+        let info2 = person.logInfo.bind(person2);
+        info2('it', '+5759494984');
+
+
+
+
+    </script>
+
+
+
+    
+</body>
+</html>

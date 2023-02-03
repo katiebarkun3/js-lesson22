@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    
+<script>
+
+    function Time(hour, minute, second) {
+        this.sec = second;
+        this.min = minute;
+        this.hour = hour;
+        this.timersec = setInterval(showTime.bind(this), 1000);
+
+        function showTime() {
+                ++this.sec;
+                if(this.sec == 60){
+                    ++this.min;
+                    this.sec = '0';
+                }
+                if(this.min == 60){
+                    ++this.hour;
+                    this.min = '0';
+                }
+                if(this.hour == 24){
+                    this.hour = '0';
+                }
+
+                if(this.sec <= 9){
+                    this.sec = '0' + this.sec;
+                }
+                if(this.min <= 9){
+                    this.min = '0' + this.min;
+                }
+                if(this.hour <= 9){
+                    this.hour = '0' + this.hour;
+                }
+                    console.log(`${this.hour}:${this.min}:${this.sec}`);   
+    }
+}
+
+    let show1 = new Time(23, 59, 54);
+
+
+</script>
+
+
+
+</body>
+</html>
